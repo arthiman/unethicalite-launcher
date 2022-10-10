@@ -24,34 +24,20 @@
  */
 package net.runelite.launcher;
 
-import com.google.common.io.ByteStreams;
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Image;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import lombok.extern.slf4j.Slf4j;
+
+import javax.swing.*;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
-import lombok.extern.slf4j.Slf4j;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 
-import static net.runelite.launcher.Launcher.*;
+import static net.runelite.launcher.Launcher.LATEST_VERSION;
+import static net.runelite.launcher.Launcher.LOGS_DIR;
+import static net.runelite.launcher.Launcher.isOutdated;
 
 @Slf4j
 class InfoPanel extends JPanel
@@ -134,7 +120,6 @@ class InfoPanel extends JPanel
 	}
 
 
-
 	private static JLabel createPanelTextButton(final String title)
 	{
 		final JLabel textButton = new JLabel(title);
@@ -195,8 +180,8 @@ class InfoPanel extends JPanel
 		btn.setForeground(Color.WHITE);
 		btn.setFont(FontManager.getRunescapeFont());
 		btn.setBorder(new CompoundBorder(
-			new MatteBorder(1, 0, 0, 0, DARK_GREY),
-			new EmptyBorder(3, 0, 3, 0))
+				new MatteBorder(1, 0, 0, 0, DARK_GREY),
+				new EmptyBorder(3, 0, 3, 0))
 		);
 		btn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn.addMouseListener(new MouseAdapter()
