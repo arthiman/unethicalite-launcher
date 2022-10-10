@@ -46,7 +46,7 @@ public class OpenOSRSSplashScreen extends JFrame
 
 	private OpenOSRSSplashScreen(String mode)
 	{
-		this.setTitle("OpenOSRS");
+		this.setTitle("Unethicalite");
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setSize(FRAME_SIZE);
 		this.setLayout(new BorderLayout());

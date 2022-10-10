@@ -63,9 +63,9 @@ class InfoPanel extends JPanel
 
 	private static final Dimension VERSION_SIZE = new Dimension(PANEL_SIZE.width, 25);
 
-	private static final String TROUBLESHOOTING_URL = "https://github.com/runelite/runelite/wiki/Troubleshooting-problems-with-the-client";
-	private static final String DISCORD_INVITE_LINK = "https://discord.gg/unethicalite";
-	private static final String LAUNCHER_DOWNLOAD_LINK = "https://github.com/unethicalite/unethicalite-launcher/releases";
+	private static final String TROUBLESHOOTING_URL = "https://github.com/unethicalite/unethicalite-launcher/wiki";
+	private static final String DISCORD_INVITE_LINK = "https://discord.gg/JBw7KPscwM";
+	private static final String LAUNCHER_DOWNLOAD_LINK = "https://unethicalite.net";
 
 	InfoPanel(String mode)
 	{
@@ -122,7 +122,7 @@ class InfoPanel extends JPanel
 		this.add(logsFolder, c);
 		c.gridy++;
 
-		final JLabel discord = createPanelButton("Get help on Discord", "Instant invite link to join the OpenOSRS discord", () -> LinkBrowser.browse(DISCORD_INVITE_LINK));
+		final JLabel discord = createPanelButton("Join Discord", "Instant invite link to join the Unethicalite discord", () -> LinkBrowser.browse(DISCORD_INVITE_LINK));
 		this.add(discord, c);
 		c.gridy++;
 

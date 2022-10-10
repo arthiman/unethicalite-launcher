@@ -53,7 +53,7 @@ class MessagePanel extends JPanel
 
 	private final JLabel titleLabel = new JLabel("Unethicalite Launcher");
 	private final JLabel messageArea;
-	private final JLabel bootstrapChannel;
+	private final JLabel infoBoxMessage;
 	private final JLabel barLabel = new JLabel("Doing something important");
 	private final JProgressBar bar = new JProgressBar(0, 100);
 
@@ -61,8 +61,6 @@ class MessagePanel extends JPanel
 	private final JScrollPane scrollPane;
 	@Getter
 	private final JPanel buttonPanel;
-//	private final JButton stableBtn;
-//	private final JButton snapshotBtn;
 
 	MessagePanel()
 	{
@@ -101,10 +99,10 @@ class MessagePanel extends JPanel
 		this.add(scrollPane, c);
 		c.gridy++;
 
-		bootstrapChannel = messageArea("Would you like to launch the Stable or Snapshot version? Snapshot has " +
-				"the latest features, but may also contain bugs.");
+		infoBoxMessage = messageArea("The client will not work if you do not have a subscription. " +
+				"Click 'Join Discord' to join and purchase a license.");
 
-		this.add(bootstrapChannel, c);
+		this.add(infoBoxMessage, c);
 		c.gridy++;
 
 		buttonPanel = new JPanel();
@@ -113,14 +111,7 @@ class MessagePanel extends JPanel
 		buttonPanel.setBackground(ColorScheme.DARKER_GRAY_COLOR);
 		buttonPanel.setOpaque(true);
 
-//		stableBtn = addButton("Stable", "The Stable option isn't the most up-to-date build, it will use the most stable OpenOSRS build.");
-//		buttonPanel.add(stableBtn);
-
-//		snapshotBtn = addButton("Snapshot (unstable)", "The Snapshot option is the most up-to-date build, it will use the latest " +
-//				"Unethicalite build.");
-//		buttonPanel.add(snapshotBtn);
-
-		bootstrapChannel.setVisible(false);
+		infoBoxMessage.setVisible(false);
 		buttonPanel.setVisible(false);
 
 		this.add(buttonPanel, c);
@@ -218,7 +209,7 @@ class MessagePanel extends JPanel
 
 	void showButtons()
 	{
-		bootstrapChannel.setVisible(true);
+		infoBoxMessage.setVisible(true);
 		buttonPanel.setVisible(true);
 
 		titleLabel.revalidate();

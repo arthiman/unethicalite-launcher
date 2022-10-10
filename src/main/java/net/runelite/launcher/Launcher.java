@@ -227,6 +227,11 @@ public class Launcher
 
 			for (BootstrapMode bootstrapMode : availableBootstraps.values())
 			{
+				if (bootstrapMode.getMode().equalsIgnoreCase("nospoof"))
+				{
+					continue;
+				}
+
 				JButton button = OpenOSRSSplashScreen.addButton(StringUtils.capitalize(bootstrapMode.getMode()));
 				if (button != null)
 				{
