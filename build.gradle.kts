@@ -17,7 +17,7 @@ plugins {
 }
 
 group = "net.unethicalite"
-version = "1.0.1"
+version = "1.0.2"
 description = "Unethicalite Launcher"
 
 repositories {
