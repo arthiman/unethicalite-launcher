@@ -95,15 +95,13 @@ class InfoPanel extends JPanel
 		c.anchor = GridBagConstraints.SOUTH;
 		c.weighty = 0;
 
-		String latestLauncher = getLatestLauncher();
-
 		// Latest version
-		if (!latestLauncher.equals("-1") && !latestLauncher.equals(LauncherProperties.getVersion()))
+		if (isOutdated())
 		{
 			this.add(createPanelTextButton("Update available!", () -> LinkBrowser.browse(LAUNCHER_DOWNLOAD_LINK)), c);
 			c.gridy++;
 
-			this.add(createPanelTextButton("Latest Version: " + latestLauncher), c);
+			this.add(createPanelTextButton("Latest Version: " + LATEST_VERSION), c);
 			c.gridy++;
 		}
 
@@ -135,39 +133,7 @@ class InfoPanel extends JPanel
 		c.gridy++;
 	}
 
-	private static String getLatestLauncher()
-	{
-		try
-		{
-			URL u = new URL(LAUNCHER_BUILD);
 
-			URLConnection conn = u.openConnection();
-
-			conn.setRequestProperty("User-Agent", USER_AGENT);
-
-			try (InputStream i = conn.getInputStream())
-			{
-				byte[] bytes = i.readAllBytes();
-				Pattern pattern = Pattern.compile("version = '(\\d{1}).(\\d{1}).(\\d{1})'");
-
-				BufferedReader buf = new BufferedReader(new InputStreamReader(new ByteArrayInputStream(bytes)));
-				String str;
-				while ((str = buf.readLine()) != null)
-				{
-					Matcher m = pattern.matcher(str);
-					if (m.find())
-					{
-						return String.format("%s.%s.%s", m.group(1), m.group(2), m.group(3));
-					}
-				}
-			}
-		}
-		catch (IOException ignored)
-		{
-		}
-
-		return "-1";
-	}
 
 	private static JLabel createPanelTextButton(final String title)
 	{

@@ -49,6 +49,7 @@ import java.security.cert.X509Certificate;
 import java.util.*;
 import java.util.function.Function;
 import java.util.function.IntConsumer;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import javax.net.ssl.HttpsURLConnection;
@@ -82,8 +83,9 @@ public class Launcher
 	public static final File CRASH_FILES = new File(LOGS_DIR, "jvm_crash_pid_%p.log");
 	static final String LAUNCHER_BUILD = "https://raw.githubusercontent.com/unethicalite/unethicalite-launcher/master/build.gradle.kts";
 	static final String USER_AGENT = "Unethicalite/" + LauncherProperties.getVersion();
-
 	static final String CLIENT_MAIN_CLASS = "net.unethicalite.client.Unethicalite";
+
+	static final String LATEST_VERSION = getLatestLauncher();
 
 	public static void main(String[] args) throws IOException
 	{
@@ -217,6 +219,13 @@ public class Launcher
 		{
 			final Logger logger = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
 			logger.setLevel(Level.DEBUG);
+		}
+
+		if (isOutdated())
+		{
+			OpenOSRSSplashScreen.init(null);
+			OpenOSRSSplashScreen.setError("Launcher outdated!", "Launcher needs an update, click 'Update available!' on the right side to download the latest version.");
+			return;
 		}
 
 		if (selectedBootstrap == null || availableBootstraps.get(selectedBootstrap) == null)
@@ -890,4 +899,43 @@ public class Launcher
 	}
 
 	private static native void setBlacklistedDlls(String[] dlls);
+
+	static boolean isOutdated()
+	{
+		return !LATEST_VERSION.equals("-1") && !LATEST_VERSION.equals(LauncherProperties.getVersion());
+	}
+
+	static String getLatestLauncher()
+	{
+		try
+		{
+			URL u = new URL(LAUNCHER_BUILD);
+
+			URLConnection conn = u.openConnection();
+
+			conn.setRequestProperty("User-Agent", USER_AGENT);
+
+			try (InputStream i = conn.getInputStream())
+			{
+				byte[] bytes = i.readAllBytes();
+				Pattern pattern = Pattern.compile("version = \"(\\d{1}).(\\d{1}).(\\d{1})\"");
+
+				BufferedReader buf = new BufferedReader(new InputStreamReader(new ByteArrayInputStream(bytes)));
+				String str;
+				while ((str = buf.readLine()) != null)
+				{
+					Matcher m = pattern.matcher(str);
+					if (m.find())
+					{
+						return String.format("%s.%s.%s", m.group(1), m.group(2), m.group(3));
+					}
+				}
+			}
+		}
+		catch (IOException ignored)
+		{
+		}
+
+		return "-1";
+	}
 }
