@@ -16,9 +16,9 @@ plugins {
     checkstyle
 }
 
+description = "Unethicalite Launcher (version = '1.0.2')"
 group = "net.unethicalite"
 version = "1.0.2"
-description = "Unethicalite Launcher"
 
 repositories {
     mavenLocal()

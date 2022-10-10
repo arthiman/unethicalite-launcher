@@ -147,7 +147,7 @@ class InfoPanel extends JPanel
 
 			try (InputStream i = conn.getInputStream())
 			{
-				byte[] bytes = ByteStreams.toByteArray(i);
+				byte[] bytes = i.readAllBytes();
 				Pattern pattern = Pattern.compile("version = '(\\d{1}).(\\d{1}).(\\d{1})'");
 
 				BufferedReader buf = new BufferedReader(new InputStreamReader(new ByteArrayInputStream(bytes)));
